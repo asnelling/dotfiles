@@ -21,6 +21,7 @@ autoload -Uz \
 unalias run-help
 alias help=run-help
 
+export TERMINFO=~/.terminfo
 export EDITOR=vim
 export VISUAL=vim
 export USE_CCACHE=1
