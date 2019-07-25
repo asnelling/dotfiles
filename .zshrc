@@ -51,6 +51,7 @@ source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 [[ -n ${key[Delete]} ]] && bindkey "${key[Delete]}" delete-char
 [[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-search
 [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
+[[ -n ${key[F1]} ]] && bindkey "${key[F1]}" run-help
 #[[ -n ${key[Up]} ]] && bindkey "${key[Up]}" history-beginning-search-forward
 #[[ -n ${key[Down]} ]] && bindkey "${key[Down]}" history-beginning-search-backward
 
