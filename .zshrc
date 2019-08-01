@@ -75,26 +75,37 @@ function mcp () {
 HISTFILE=~/.history/zsh
 HISTSIZE=1000
 SAVEHIST=100000
+
+mkdir -p $(dirname $HISTFILE)
 # End of lines configured by zsh-newuser-install
 
 # source /usr/share/zsh/plugins/zsh-notify/notify.plugin.zsh
 # zstyle ':notify:*' error-title "FAILED command : #{time_elapsed} seconds"
 # zstyle ':notify:*' success-title "Command completed : #{time_elapsed} seconds"
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+pluginfile=/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f $pluginfile ]] && source $pluginfile
 
 # must be sourced after zsh-syntax-highlighting
 # https://github.com/zsh-users/zsh-history-substring-search/blob/v1.0.1/README.md#usage
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-bindkey "${key[Up]}" history-substring-search-up
-bindkey "${key[Down]}" history-substring-search-down
+pluginfile=/usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+if [[ -f $pluginfile ]]
+then
+    [[ -n ${key[Up]} ]] && bindkey "${key[Up]}" history-substring-search-up
+    [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" history-substring-search-down
+fi
 
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+pluginfile=/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -f $pluginfile ]] && source $pluginfile
 
-powerline-daemon -q
-source /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
+if which powerline-daemon > /dev/null
+then
+    powerline-daemon -q
+    source /usr/share/powerline/bindings/zsh/powerline.zsh
+fi
 
-source /opt/google-cloud-sdk/completion.zsh.inc
+pluginfile=/opt/google-cloud-sdk/completion.zsh.inc
+[[ -f $pluginfile ]] && source $pluginfile
 
 # root required
 # calls IConnectivityManager.setUsbTethering() on Android 9
