@@ -91,6 +91,7 @@ pluginfile=/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlightin
 pluginfile=/usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 if [[ -f $pluginfile ]]
 then
+    source $pluginfile
     [[ -n ${key[Up]} ]] && bindkey "${key[Up]}" history-substring-search-up
     [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" history-substring-search-down
 fi
