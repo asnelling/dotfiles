@@ -5,8 +5,8 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-setopt extendedglob
-#setopt cexpandparam
+setopt extendedglob \
+    share_history
 
 autoload -U promptinit
 promptinit
