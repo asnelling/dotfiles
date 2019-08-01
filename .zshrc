@@ -43,6 +43,7 @@ alias msed='sed --regexp-extended'
 alias view=vim
 alias psf="ps -u ${USER} -F"
 
+typeset -U path
 path+=(
     ~/.local/bin
 )
