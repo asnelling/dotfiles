@@ -52,11 +52,7 @@ source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
 [[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
 [[ -n ${key[Delete]} ]] && bindkey "${key[Delete]}" delete-char
-[[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-search
-[[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
 [[ -n ${key[F1]} ]] && bindkey "${key[F1]}" run-help
-#[[ -n ${key[Up]} ]] && bindkey "${key[Up]}" history-beginning-search-forward
-#[[ -n ${key[Down]} ]] && bindkey "${key[Down]}" history-beginning-search-backward
 
 export GPG_TTY=$(tty)
 unset SSH_AGENT_PID
@@ -86,6 +82,12 @@ SAVEHIST=100000
 # zstyle ':notify:*' success-title "Command completed : #{time_elapsed} seconds"
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# must be sourced after zsh-syntax-highlighting
+# https://github.com/zsh-users/zsh-history-substring-search/blob/v1.0.1/README.md#usage
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey "${key[Up]}" history-substring-search-up
+bindkey "${key[Down]}" history-substring-search-down
 
 powerline-daemon -q
 source /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
