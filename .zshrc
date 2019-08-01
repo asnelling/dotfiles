@@ -102,6 +102,12 @@ source /opt/google-cloud-sdk/completion.zsh.inc
 alias starttethering='adb shell su -c " service call connectivity 33 i32 1 s16 com.android.settings"'
 alias stoptethering='adb shell su -c "service call connectivity 33 i32 0 s16 com.android.settings"'
 
+# add color to adb logcat
+alias adblog='adb logcat --format=color'
+
+# start adb logcat without lines leading up to this moment
+alias adblogn='adblog -T "$(date \"+%m-%d %H:%M:%S.000\")"'
+
 # identifies the codes corresponding to each Android system service method.
 #
 # usage:
