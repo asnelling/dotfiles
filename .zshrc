@@ -96,6 +96,12 @@ source /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
 source /opt/google-cloud-sdk/completion.zsh.inc
 
+# root required
+# calls IConnectivityManager.setUsbTethering() on Android 9
+# https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-9.0.0_r45/core/java/android/net/IConnectivityManager.aidl#99
+alias starttethering='adb shell su -c " service call connectivity 33 i32 1 s16 com.android.settings"'
+alias stoptethering='adb shell su -c "service call connectivity 33 i32 0 s16 com.android.settings"'
+
 # identifies the codes corresponding to each Android system service method.
 #
 # usage:
