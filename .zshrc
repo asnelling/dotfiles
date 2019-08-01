@@ -95,3 +95,11 @@ powerline-daemon -q
 source /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
 source /opt/google-cloud-sdk/completion.zsh.inc
+
+# identifies the codes corresponding to each Android system service method.
+#
+# usage:
+# adb shell service call SERVICENAME CODE ...
+function aidlcodes() {
+  msed '1,/^\{/ d ; /^}/,$ d ; /^ {4}[a-zA-Z]/ ! d' $1 | mgrep --line-number .
+}
