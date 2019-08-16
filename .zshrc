@@ -46,6 +46,11 @@ alias psf="ps -u ${USER} -F"
 typeset -U path
 path+=(
     ~/.local/bin
+    ~/opt/android-sdk/build-tools/29.0.2
+    ~/opt/android-sdk/emulator
+    ~/opt/android-sdk/platform-tools
+    ~/opt/android-sdk/tools
+    ~/opt/android-sdk/tools/bin
 )
 
 source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
