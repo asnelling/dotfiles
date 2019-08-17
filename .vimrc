@@ -5,6 +5,7 @@ source $VIMRUNTIME/defaults.vim
 
 set autoindent
 set expandtab
+set hlsearch
 set ignorecase
 set shiftwidth=4
 set smarttab
