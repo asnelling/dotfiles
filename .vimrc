@@ -4,6 +4,7 @@ unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
 set autoindent
+set background=dark
 set expandtab
 set hlsearch
 set ignorecase
