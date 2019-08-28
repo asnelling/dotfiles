@@ -8,6 +8,7 @@ set background=dark
 set expandtab
 set hlsearch
 set ignorecase
+set nowrap
 set shiftwidth=4
 set smarttab
 set smartcase
