@@ -15,11 +15,19 @@ general {
 order += "ipv6"
 order += "wireless _first_"
 order += "ethernet _first_"
+order += "cpu_temperature 0"
 order += "battery all"
 order += "disk /"
 order += "load"
 order += "memory"
 order += "tztime local"
+
+cpu_temperature 0 {
+    format = "T: %degreesC"
+    format_above_threshold = "T: %degreesC (HOT)"
+    max_threshold = 70
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
+}
 
 wireless _first_ {
         format_up = "W: (%quality at %essid) %ip"
