@@ -1,0 +1,10 @@
+[color]
+	ui = auto
+[init]
+	defaultBranch = master
+[pull]
+	rebase = false
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
