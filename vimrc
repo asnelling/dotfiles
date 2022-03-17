@@ -8,9 +8,9 @@ set expandtab
 set shiftwidth=2
 set smarttab
 
-# case insensitive patterns and searches
+" case insensitive patterns and searches
 set ignorecase
-# except when a term includes an uppercase character
+" except when a term includes an uppercase character
 set smartcase
 
 set backspace=indent,eol,start
