@@ -8,6 +8,7 @@ files_to_install=(
   tmux.conf
   vimrc
   zshrc
+  zkbd
 )
 
 mkdir -p ~/.config
