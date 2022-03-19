@@ -13,5 +13,5 @@ files_to_install=(
 mkdir -p ~/.config
 for f in $files_to_install
 do
-  ln -s -r ${dotfiles}/${f} ~/.${f}
+  ln -sfr ${dotfiles}/${f} ~/.${f}
 done
