@@ -9,6 +9,8 @@ files_to_install=(
   vimrc
   zshrc
 )
+
+mkdir -p ~/.config
 for f in $files_to_install
 do
   ln -s -r ${dotfiles}/${f} ~/.${f}
