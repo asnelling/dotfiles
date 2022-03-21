@@ -25,6 +25,7 @@ path=(
 )
 
 alias ls="ls --color"
+alias lsl="ls -al"
 
 source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
