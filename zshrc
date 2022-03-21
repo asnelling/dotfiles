@@ -27,6 +27,9 @@ path=(
 alias ls="ls --color"
 alias lsl="ls -al"
 
+# refresh password timeout with each invocation of sudo
+alias sudo="sudo -v; sudo"
+
 source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
 [[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
