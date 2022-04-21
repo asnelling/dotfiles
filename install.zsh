@@ -1,6 +1,6 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 
-dotfiles=${0:a:h}
+dotfiles_dir="${${0:a:h}#~/}"
 
 files_to_install=(
   config/pythonrc.py
@@ -14,5 +14,5 @@ files_to_install=(
 mkdir -p ~/.config
 for f in $files_to_install
 do
-  ln -sfr ${dotfiles}/${f} ~/.${f}
+  ln -sf ${dotfiles_dir}/${f} ~/.${f}
 done
