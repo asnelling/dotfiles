@@ -25,6 +25,7 @@ readonly dotfiles_zshrc="$(realpath ${ZDOTDIR-~}/.zshrc)"
 if [[ -f "${dotfiles_zshrc%/*}/functions.zsh" ]]; then
     source "${dotfiles_zshrc%/*}/functions.zsh"
     setup_android_sdk
+    setup_brew_guard
     setup_help
     setup_java
     setup_terraform_completions

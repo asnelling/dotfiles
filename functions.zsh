@@ -24,6 +24,22 @@ setup_android_sdk() {
     fi
 }
 
+setup_brew_guard() {
+    BREW_CMD="$(which brew)"
+
+    brew_guard() {
+        if [[ -O "/usr/local/Cellar" ]]; then
+            $BREW_CMD $@
+        else
+            print "ERROR: only run brew from the single user that installed it!" >&2
+        fi
+    }
+
+    if [[ -x "${BREW_CMD}" ]]; then
+        alias brew=brew_guard
+    fi
+}
+
 setup_help() {
     # on-line help for ZSH builtins
     # key binding: ^[h (ESC h)
