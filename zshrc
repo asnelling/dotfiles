@@ -35,8 +35,10 @@ fi
 
 source "${dotfiles_zshrc%/*}/lscolors.zsh"
 
-alias ls="ls --color"
-alias lsl="ls -al"
+alias l="ls --color"
+alias ll="l -al"
+alias lt="l -altr"
+alias lz="l -alSr"
 
 # refresh password timeout with each invocation of sudo
 alias sudo="sudo -v; sudo"
