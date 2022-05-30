@@ -111,10 +111,10 @@ install_zsh_completions() {
     pushd "$tmpd"
     echo "Downloading ${tarball_url}"
     wget -O zsh-completions.tar.gz "${tarball_url}"
-    tar --strip-components=2 -xf zsh-completions.tar.gz '*/src'
+    tar --strip-components=1 -xf zsh-completions.tar.gz
     rm -rf "$installdir"
     mkdir -p "$installdir"
-    mv _* "$installdir/"
+    mv ./src/* "$installdir/"
     popd
     rm -rf "$tmpd"
 
