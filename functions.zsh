@@ -85,3 +85,70 @@ setup_zkbd() {
         [[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
     fi
 }
+
+setup_zsh_completions() {
+    if [[ -d ~/.local/share/zsh-completions ]]; then
+        fpath=(
+            ~/.local/share/zsh-completions
+            $fpath
+        )
+    elif [[ -d /usr/local/share/zsh-completions ]]; then
+        fpath=(
+            "/usr/local/share/zsh-completions"
+            $fpath
+        )
+    else
+        echo "WARN: zsh-completions not found. To install: run \"install_zsh_completions\"" >&2
+    fi
+}
+
+install_zsh_completions() {
+    echo "Getting latest tarball URL from: https://api.github.com/repos/zsh-users/zsh-completions/releases/latest"
+    readonly tarball_url="$(curl https://api.github.com/repos/zsh-users/zsh-completions/releases/latest | jq --raw-output '.tarball_url')"
+    readonly tmpd="$(mktemp -d)"
+    readonly installdir=~/.local/share/zsh-completions
+
+    pushd "$tmpd"
+    echo "Downloading ${tarball_url}"
+    wget -O zsh-completions.tar.gz "${tarball_url}"
+    tar --strip-components=2 -xf zsh-completions.tar.gz '*/src'
+    rm -rf "$installdir"
+    mkdir -p "$installdir"
+    mv _* "$installdir/"
+    popd
+    rm -rf "$tmpd"
+
+    echo "Finished installing zsh-completions in: $installdir"
+}
+
+setup_zsh_fast_syntax_highlighting() {
+    if [[ -d ~/.local/share/zsh-fast-syntax-highlighting ]]; then
+        source ~/.local/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+    elif [[ -d /usr/local/opt/zsh-fast-syntax-highlighting ]]; then
+        source /usr/local/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+    else
+        echo "WARN: zsh-fast-syntax-highlighting not found. To install: run \"install_zsh_fast_syntax_highlighting\"" >&2
+    fi
+}
+
+install_zsh_fast_syntax_highlighting() {
+    echo "Getting latest tarball URL from: https://api.github.com/repos/zdharma-continuum/fast-syntax-highlighting/tags"
+    readonly tarball_url="$(curl https://api.github.com/repos/zdharma-continuum/fast-syntax-highlighting/tags | jq --raw-output '.[0].tarball_url')"
+    readonly tmpd="$(mktemp -d)"
+    readonly installdir=~/.local/share/zsh-fast-syntax-highlighting
+
+    pushd "$tmpd"
+    echo "Downloading ${tarball_url}"
+    wget -O zsh-fast-syntax-highlighting.tar.gz "${tarball_url}"
+    tar --strip-components=1 --exclude='.*' -xf zsh-fast-syntax-highlighting.tar.gz
+    rm zsh-fast-syntax-highlighting.tar.gz
+    rm -rf "$installdir"
+    mkdir -p "$installdir"
+    mv -- * "$installdir/"
+    popd
+    rm -rf "$tmpd"
+
+    echo "Finished installing zsh-fast-syntax-highlighting in: $installdir"
+}
+
+# vim: sw=4

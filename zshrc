@@ -30,6 +30,8 @@ if [[ -f "${dotfiles_zshrc%/*}/functions.zsh" ]]; then
     setup_java
     setup_terraform_completions
     setup_zkbd
+    setup_zsh_completions
+    setup_zsh_fast_syntax_highlighting
 
     prepend_to_path ~/.local/bin
 fi
