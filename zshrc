@@ -27,6 +27,8 @@ if [[ -f "${dotfiles_zshrc%/*}/functions.zsh" ]]; then
     setup_android_sdk
     setup_brew_guard
     setup_help
+    setup_gcloud_completions
+    setup_gcloud_components
     setup_java
     setup_terraform_completions
     setup_zkbd
