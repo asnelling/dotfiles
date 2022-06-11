@@ -115,20 +115,32 @@ setup_zsh_completions() {
 }
 
 install_zsh_completions() {
-    echo "Getting latest tarball URL from: https://api.github.com/repos/zsh-users/zsh-completions/releases/latest"
-    readonly tarball_url="$(curl https://api.github.com/repos/zsh-users/zsh-completions/releases/latest | jq --raw-output '.tarball_url')"
-    readonly tmpd="$(mktemp -d)"
-    readonly installdir=~/.local/share/zsh-completions
+    typeset -h apiurl="https://api.github.com/repos/zsh-users/zsh-completions/releases/latest"
+    typeset -h tmpd="$(mktemp -d)"
+    typeset -h installdir="${HOME}/.local/share/zsh-completions"
+    typeset -h tarball_sha256="63390dc57b2cf78c03d996645aa21f5937c23ad34bffdb19d493cf1f62e885c7"
+    typeset -h tarball_name="zsh-completions.tar.gz"
+    typeset -h tarball_url
 
-    pushd "$tmpd"
+    trap "popd; [[ ! -d \"$tmpd\" ]] || rm -rf \"$tmpd\"" EXIT
+    setopt err_return
+    pushd "${tmpd}"
+
+    # slurp curl output with `tee /dev/null` to suppress curl error:
+    #   (23) Failed writing body
+    echo "Getting latest tarball URL from: ${apiurl}"
+    curl -sSf "${apiurl}" \
+      | tee /dev/null \
+      | grep -Eo -m1 'https://api.github.com/repos/[^/]+/[^/]+/tarball/[^"]+' \
+      | read tarball_url
+
     echo "Downloading ${tarball_url}"
-    wget -O zsh-completions.tar.gz "${tarball_url}"
-    tar --strip-components=1 -xf zsh-completions.tar.gz
+    curl -LsSf -o "${tarball_name}" "${tarball_url}"
+    echo "${tarball_sha256}  ${tarball_name}" | sha256sum -c -
+    tar --strip-components=1 -xf "${tarball_name}"
     rm -rf "$installdir"
     mkdir -p "$installdir"
     mv ./src/* "$installdir/"
-    popd
-    rm -rf "$tmpd"
 
     echo "Finished installing zsh-completions in: $installdir"
 }
@@ -144,21 +156,33 @@ setup_zsh_fast_syntax_highlighting() {
 }
 
 install_zsh_fast_syntax_highlighting() {
-    echo "Getting latest tarball URL from: https://api.github.com/repos/zdharma-continuum/fast-syntax-highlighting/tags"
-    readonly tarball_url="$(curl https://api.github.com/repos/zdharma-continuum/fast-syntax-highlighting/tags | jq --raw-output '.[0].tarball_url')"
-    readonly tmpd="$(mktemp -d)"
-    readonly installdir=~/.local/share/zsh-fast-syntax-highlighting
+    typeset -h apiurl="https://api.github.com/repos/zdharma-continuum/fast-syntax-highlighting/tags"
+    typeset -h tmpd="$(mktemp -d)"
+    typeset -h installdir="${HOME}/.local/share/zsh-fast-syntax-highlighting"
+    typeset -h tarball_sha256="c10d2670e3adb6cce7a7411a1009e2eaee404a40311e36fdbb8181025763eb37"
+    typeset -h tarball_name="zsh-fast-syntax-highlighting.tar.gz"
+    typeset -h tarball_url
 
-    pushd "$tmpd"
+    trap "popd; [[ ! -d \"$tmpd\" ]] || rm -rf \"$tmpd\"" EXIT
+    setopt err_return
+    pushd "${tmpd}"
+
+    # slurp curl output with `tee /dev/null` to suppress curl error:
+    #   (23) Failed writing body
+    echo "Getting latest tarball URL from: ${apiurl}"
+    curl -sSf "${apiurl}" \
+      | tee /dev/null \
+      | grep -Eo -m1 'https://api.github.com/repos/[^/]+/[^/]+/tarball/[^"]+' \
+      | read tarball_url
+
     echo "Downloading ${tarball_url}"
-    wget -O zsh-fast-syntax-highlighting.tar.gz "${tarball_url}"
-    tar --strip-components=1 --exclude='.*' -xf zsh-fast-syntax-highlighting.tar.gz
+    curl -LsSf -o "${tarball_name}" "${tarball_url}"
+    echo "${tarball_sha256}  ${tarball_name}" | sha256sum -c -
+    tar --strip-components=1 --exclude='.*' -xf "${tarball_name}"
     rm zsh-fast-syntax-highlighting.tar.gz
     rm -rf "$installdir"
     mkdir -p "$installdir"
     mv -- * "$installdir/"
-    popd
-    rm -rf "$tmpd"
 
     echo "Finished installing zsh-fast-syntax-highlighting in: $installdir"
 }
