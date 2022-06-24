@@ -38,6 +38,10 @@ if [[ -f "${dotfiles_zshrc%/*}/functions.zsh" ]]; then
     prepend_to_path ~/.local/bin
 fi
 
+fpath+=(
+    "${dotfiles_zshrc%/*}/functions"
+)
+
 source "${dotfiles_zshrc%/*}/lscolors.zsh"
 
 alias l="ls --color"

@@ -1,0 +1,12 @@
+local download_url="https://api.github.com/repos/mbadolato/iTerm2-Color-Schemes/tarball"
+local download_file="colorschemes.tar.gz"
+local install_dir="${HOME}/.config/alacritty/colorschemes"
+local tmp="$(mktemp -d)"
+
+pushd "${tmp}"
+trap "popd; rm -rf \"${tmp}\"" EXIT
+setopt err_return
+
+curl -LsSf -o "${download_file}" "${download_url}"
+tar --strip-components=1 -xf "${download_file}"
+mv alacritty/* "${install_dir}/"
