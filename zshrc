@@ -49,8 +49,8 @@ alias ll="l -al"
 alias lt="l -altr"
 alias lz="l -alSr"
 
-# refresh password timeout with each invocation of sudo
-alias sudo="sudo -v; sudo"
+# allow alias expansion on the word following `sudo` commands
+alias sudo='sudo '
 
 export EDITOR=vim
 export LESS="-i -S -R -M"
