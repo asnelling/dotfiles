@@ -19,3 +19,5 @@ set ruler
 set modelines=2
 
 set viminfofile=~/.history/viminfo
+
+set background=dark
