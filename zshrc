@@ -42,12 +42,18 @@ fpath+=(
     "${dotfiles_zshrc%/*}/functions"
 )
 
+funcs=(${dotfiles_zshrc%/*}/functions/*)
+autoload -U ${funcs##*/}
+(cd "${dotfiles_zshrc%/*}/functions" && autoload -U *)
+
 source "${dotfiles_zshrc%/*}/lscolors.zsh"
 
-alias l="ls --color"
-alias ll="l -al"
-alias lt="l -altr"
-alias lz="l -alSr"
+alias g="grep --color=always -E -i "
+alias l="ls --color "
+alias ll="l -al "
+alias lt="l -altr "
+alias lz="l -alSr "
+alias s="sed -E "
 
 # allow alias expansion on the word following `sudo` commands
 alias sudo='sudo '
