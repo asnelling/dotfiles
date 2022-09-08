@@ -1,0 +1,11 @@
+# cat multiple files, with a filename header for each file
+# usage: cat [file]...
+
+for f in ${argv}; do
+  print "########${f//?/#}"
+  print "# File: ${f}"
+  print "########${f//?/#}"
+  cat "${f}"
+done
+
+# vim: ft=zsh
