@@ -115,24 +115,15 @@ setup_zsh_completions() {
 }
 
 install_zsh_completions() {
-    typeset -h apiurl="https://api.github.com/repos/zsh-users/zsh-completions/releases/latest"
     typeset -h tmpd="$(mktemp -d)"
     typeset -h installdir="${HOME}/.local/share/zsh-completions"
-    typeset -h tarball_sha256="63390dc57b2cf78c03d996645aa21f5937c23ad34bffdb19d493cf1f62e885c7"
+    typeset -h tarball_sha256="8d42ca6b40c30cad6a746ab883b01415424c6ca4528e306d314fcf9cbf680e58"
     typeset -h tarball_name="zsh-completions.tar.gz"
-    typeset -h tarball_url
+    typeset -h tarball_url="https://api.github.com/repos/zsh-users/zsh-completions/tarball/0.34.0"
 
     trap "popd; [[ ! -d \"$tmpd\" ]] || rm -rf \"$tmpd\"" EXIT
     setopt err_return
     pushd "${tmpd}"
-
-    # slurp curl output with `tee /dev/null` to suppress curl error:
-    #   (23) Failed writing body
-    echo "Getting latest tarball URL from: ${apiurl}"
-    curl -sSf "${apiurl}" \
-      | tee /dev/null \
-      | grep -Eo -m1 'https://api.github.com/repos/[^/]+/[^/]+/tarball/[^"]+' \
-      | read tarball_url
 
     echo "Downloading ${tarball_url}"
     curl -LsSf -o "${tarball_name}" "${tarball_url}"
@@ -156,24 +147,15 @@ setup_zsh_fast_syntax_highlighting() {
 }
 
 install_zsh_fast_syntax_highlighting() {
-    typeset -h apiurl="https://api.github.com/repos/zdharma-continuum/fast-syntax-highlighting/tags"
     typeset -h tmpd="$(mktemp -d)"
     typeset -h installdir="${HOME}/.local/share/zsh-fast-syntax-highlighting"
     typeset -h tarball_sha256="c10d2670e3adb6cce7a7411a1009e2eaee404a40311e36fdbb8181025763eb37"
     typeset -h tarball_name="zsh-fast-syntax-highlighting.tar.gz"
-    typeset -h tarball_url
+    typeset -h tarball_url="https://api.github.com/repos/zdharma-continuum/fast-syntax-highlighting/tarball/refs/tags/v1.55"
 
     trap "popd; [[ ! -d \"$tmpd\" ]] || rm -rf \"$tmpd\"" EXIT
     setopt err_return
     pushd "${tmpd}"
-
-    # slurp curl output with `tee /dev/null` to suppress curl error:
-    #   (23) Failed writing body
-    echo "Getting latest tarball URL from: ${apiurl}"
-    curl -sSf "${apiurl}" \
-      | tee /dev/null \
-      | grep -Eo -m1 'https://api.github.com/repos/[^/]+/[^/]+/tarball/[^"]+' \
-      | read tarball_url
 
     echo "Downloading ${tarball_url}"
     curl -LsSf -o "${tarball_name}" "${tarball_url}"
