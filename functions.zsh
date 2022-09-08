@@ -109,6 +109,11 @@ setup_zsh_completions() {
             "/usr/local/share/zsh-completions"
             $fpath
         )
+    elif [[ -d /usr/share/zsh/site-functions ]]; then
+        fpath=(
+            "/usr/share/zsh/site-functions"
+            $fpath
+        )
     else
         echo "WARN: zsh-completions not found. To install: run \"install_zsh_completions\"" >&2
     fi
