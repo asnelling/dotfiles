@@ -10,13 +10,6 @@ setopt extendedglob
 unsetopt beep
 bindkey -e
 
-# The following lines were added by compinstall
-zstyle :compinstall filename ~/.zshrc
-
-autoload -Uz compinit
-compinit -u
-# End of lines added by compinstall
-
 autoload -U promptinit
 promptinit
 prompt clint
@@ -59,10 +52,34 @@ alias s="sed -E "
 alias sudo='sudo '
 
 export EDITOR=vim
-export LESS="-i -S -R -M"
+export LESS="-i -S -R -M -a -j20"
 export LESSHISTFILE=~/.history/lesshst
 export LESSHISTSIZE=1000
 
 if [[ -f ~/.config/pythonrc.py ]]; then
     export PYTHONSTARTUP=~/.config/pythonrc.py
 fi
+
+#[[ -s /etc/grc.zsh ]] && source /etc/grc.zsh
+
+# The following lines were added by compinstall
+zstyle :compinstall filename ~/.zshrc
+
+autoload -Uz compinit
+compinit -u
+# End of lines added by compinstall
+alias mps='ps -u user1 -H -o pid,ppid,ni,pmem,pcpu,thcount,rss,wchan,alarm,lsession:5,stat,tname,time,args --cols $COLUMNS'
+
+#powerline-daemon -q
+#source /usr/share/powerline/bindings/zsh/powerline.zsh
+
+
+#
+# Android App Development
+#
+export ANDROID_HOME=~/.local/share/android-sdk
+export ANDROID_SDK_ROOT=$ANDROID_HOME
+path+=(
+    "$ANDROID_HOME/cmdline-tools/latest/bin"
+    "$ANDROID_HOME/platform-tools"
+)
