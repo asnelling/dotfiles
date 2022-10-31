@@ -3,6 +3,7 @@
 dotfiles_dir="${${0:a:h}#~/}"
 
 files_to_install=(
+  bashrc
   config/pythonrc.py
   gitconfig
   tmux.conf
