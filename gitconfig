@@ -15,4 +15,6 @@
 	clean = git-lfs clean -- %f
 [user]
 	name = Addison Snelling
-	email = contact@asnell.io
+	email = fwd+gpg@ext.asnell.io
+[core]
+	autocrlf = input
