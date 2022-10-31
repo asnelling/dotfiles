@@ -26,7 +26,7 @@ if [[ -f "${dotfiles_zshrc%/*}/functions.zsh" ]]; then
     setup_terraform_completions
     setup_zkbd
     setup_zsh_completions
-    setup_zsh_fast_syntax_highlighting
+    setup_zsh_syntax_highlighting
 
     prepend_to_path ~/.local/bin
 fi
@@ -83,3 +83,5 @@ path+=(
     "$ANDROID_HOME/cmdline-tools/latest/bin"
     "$ANDROID_HOME/platform-tools"
 )
+
+bindkey "^[[3~" delete-char

@@ -141,13 +141,15 @@ install_zsh_completions() {
     echo "Finished installing zsh-completions in: $installdir"
 }
 
-setup_zsh_fast_syntax_highlighting() {
+setup_zsh_syntax_highlighting() {
     if [[ -d ~/.local/share/zsh-fast-syntax-highlighting ]]; then
         source ~/.local/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
     elif [[ -d /usr/local/opt/zsh-fast-syntax-highlighting ]]; then
         source /usr/local/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+    elif [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+        source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     else
-        echo "WARN: zsh-fast-syntax-highlighting not found. To install: run \"install_zsh_fast_syntax_highlighting\"" >&2
+        echo "WARN: zsh-syntax-highlighting or zsh-fast-syntax-highlighting not found. To install: run \"install_zsh_fast_syntax_highlighting\"" >&2
     fi
 }
 
