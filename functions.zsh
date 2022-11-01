@@ -95,6 +95,9 @@ setup_zkbd() {
         source "${keymap_file}"
         [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
         [[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
+    else
+        echo "NOTICE: zkbd keymap not found: ${keymap_file}" >&2
+        echo "To configure: autoload -U zkbd; zkbd" >&2
     fi
 }
 
