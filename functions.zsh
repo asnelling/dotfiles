@@ -8,11 +8,16 @@ prepend_to_path() {
 }
 
 setup_android_sdk() {
+    if [[ ! -z "$ANDROID_HOME" && -d "$ANDROID_HOME" ]]; then
+        return
+    fi
     ANDROID_HOME=
     if [[ -d ~/Library/Android/sdk ]]; then
         ANDROID_HOME=~/Library/Android/sdk
     elif [[ -d ~/Android/Sdk ]]; then
         ANDROID_HOME=~/Android/Sdk
+    elif [[ -d ~/.local/share/android-sdk ]]; then
+        ANDROID_HOME=~/.local/share/android-sdk
     fi
 
     if [[ -n "$ANDROID_HOME" ]]; then
@@ -69,6 +74,9 @@ setup_help() {
 }
 
 setup_java() {
+    if [[ ! -z "$JAVA_HOME" && -d "$JAVA_HOME" ]]; then
+        return
+    fi
     JAVA_HOME=
     if [[ -d "/usr/local/opt/openjdk@11" ]]; then
         JAVA_HOME="/usr/local/opt/openjdk@11"
