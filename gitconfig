@@ -19,6 +19,7 @@
 	signingKey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGNp32FfFZdNIGkFl1p2ut18SZW1Ui0V2Jm2SU2L8z4V
 [core]
 	autocrlf = input
+	pager = less -F
 [gpg]
 	format = ssh
 [gpg "ssh"]
