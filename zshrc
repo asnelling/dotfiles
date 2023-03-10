@@ -29,6 +29,8 @@ if [[ -f "${dotfiles_zshrc%/*}/functions.zsh" ]]; then
     setup_zsh_syntax_highlighting
 
     prepend_to_path ~/.local/bin
+    prepend_to_path /usr/local/opt/ncurses/bin
+    prepend_to_path /usr/local/opt/man-db/libexec/bin
 fi
 
 fpath+=(
