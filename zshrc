@@ -29,6 +29,8 @@ if [[ -f "${dotfiles_zshrc%/*}/functions.zsh" ]]; then
     setup_zsh_syntax_highlighting
 
     prepend_to_path ~/.local/bin
+    prepend_to_path /usr/local/opt/ncurses/bin
+    prepend_to_path /usr/local/opt/man-db/libexec/bin
 fi
 
 fpath+=(
@@ -73,15 +75,5 @@ alias mps='ps -u user1 -H -o pid,ppid,ni,pmem,pcpu,thcount,rss,wchan,alarm,lsess
 #powerline-daemon -q
 #source /usr/share/powerline/bindings/zsh/powerline.zsh
 
-
-#
-# Android App Development
-#
-export ANDROID_HOME=~/.local/share/android-sdk
-export ANDROID_SDK_ROOT=$ANDROID_HOME
-path+=(
-    "$ANDROID_HOME/cmdline-tools/latest/bin"
-    "$ANDROID_HOME/platform-tools"
-)
 
 bindkey "^[[3~" delete-char
