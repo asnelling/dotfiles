@@ -7,6 +7,17 @@ prepend_to_path() {
     fi
 }
 
+# usage: try_source <file> [file]...
+# For each file given, source the first one that exists, skipping the rest.
+try_source() {
+    for x in "$@"; do
+        if [[ -f "${x}" ]]; then
+            source "${x}"
+            return
+        fi
+    done
+}
+
 setup_android_sdk() {
     if [[ ! -z "$ANDROID_HOME" && -d "$ANDROID_HOME" ]]; then
         return
@@ -42,18 +53,6 @@ setup_brew_guard() {
 
     if [[ -x "${BREW_CMD}" ]]; then
         alias brew=brew_guard
-    fi
-}
-
-setup_gcloud_completions() {
-    if [[ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc ]]; then
-        source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-    fi
-}
-
-setup_gcloud_components() {
-    if [[ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
-        source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
     fi
 }
 
@@ -151,40 +150,3 @@ install_zsh_completions() {
 
     echo "Finished installing zsh-completions in: $installdir"
 }
-
-setup_zsh_syntax_highlighting() {
-    if [[ -d ~/.local/share/zsh-fast-syntax-highlighting ]]; then
-        source ~/.local/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-    elif [[ -d /usr/local/opt/zsh-fast-syntax-highlighting ]]; then
-        source /usr/local/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-    elif [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-        source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    else
-        echo "WARN: zsh-syntax-highlighting or zsh-fast-syntax-highlighting not found. To install: run \"install_zsh_fast_syntax_highlighting\"" >&2
-    fi
-}
-
-install_zsh_fast_syntax_highlighting() {
-    typeset -h tmpd="$(mktemp -d)"
-    typeset -h installdir="${HOME}/.local/share/zsh-fast-syntax-highlighting"
-    typeset -h tarball_sha256="c10d2670e3adb6cce7a7411a1009e2eaee404a40311e36fdbb8181025763eb37"
-    typeset -h tarball_name="zsh-fast-syntax-highlighting.tar.gz"
-    typeset -h tarball_url="https://api.github.com/repos/zdharma-continuum/fast-syntax-highlighting/tarball/refs/tags/v1.55"
-
-    trap "popd; [[ ! -d \"$tmpd\" ]] || rm -rf \"$tmpd\"" EXIT
-    setopt err_return
-    pushd "${tmpd}"
-
-    echo "Downloading ${tarball_url}"
-    curl -LsSf -o "${tarball_name}" "${tarball_url}"
-    echo "${tarball_sha256}  ${tarball_name}" | sha256sum -c -
-    tar --strip-components=1 --exclude='.*' -xf "${tarball_name}"
-    rm zsh-fast-syntax-highlighting.tar.gz
-    rm -rf "$installdir"
-    mkdir -p "$installdir"
-    mv -- * "$installdir/"
-
-    echo "Finished installing zsh-fast-syntax-highlighting in: $installdir"
-}
-
-# vim: sw=4

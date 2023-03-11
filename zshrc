@@ -20,17 +20,25 @@ if [[ -f "${dotfiles_zshrc%/*}/functions.zsh" ]]; then
     setup_android_sdk
     setup_brew_guard
     setup_help
-    setup_gcloud_completions
-    setup_gcloud_components
-    setup_java
     setup_terraform_completions
     setup_zkbd
     setup_zsh_completions
-    setup_zsh_syntax_highlighting
 
     prepend_to_path ~/.local/bin
     prepend_to_path /usr/local/opt/ncurses/bin
     prepend_to_path /usr/local/opt/man-db/libexec/bin
+
+    prepend_to_path /usr/local/opt/openjdk/bin
+    prepend_to_path /usr/lib/jvm/default-java/bin
+
+    try_source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+    try_source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+
+    try_source \
+      ~/.local/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh \
+      /usr/local/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh \
+      /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+      /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 fpath+=(
